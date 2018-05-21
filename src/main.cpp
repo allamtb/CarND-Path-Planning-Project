@@ -252,12 +252,7 @@ int main() {
                         car_s = end_path_s;
                     }
                     /***************************************************************************
-                    // Prediction : Analysing other cars positions.
-                    // sensor_fusion : data about the other cars
-                    // sensor_fusion[i]: data of other car number i
-                    // d: position of the other car number i
-                    // other_car_lane: the lane of the other car number i
-                    // my_lane: car my car is
+                    // 预测 reference from Project walkthrough and QA
                     ***************************************************************************/
 
                     bool other_car_ahead = false;
@@ -292,19 +287,20 @@ int main() {
 
                         if ( other_car_lane == my_lane ) {
                             // other Car in our lane.
-                            other_car_ahead |= check_other_car_s > car_s && check_other_car_s - car_s < 30;
+                            other_car_ahead = check_other_car_s > car_s && check_other_car_s - car_s < 30;
                         } else if ( other_car_lane - my_lane == -1 ) {
                             // other Car left
-                            other_car_left |= car_s - 30 < check_other_car_s && car_s + 30 > check_other_car_s;
+                            other_car_left = car_s - 40 < check_other_car_s && car_s + 40 > check_other_car_s;
                         } else if ( other_car_lane - my_lane == 1 ) {
                             // other Car right
-                            other_car_righ |= car_s - 30 < check_other_car_s && car_s + 30 > check_other_car_s;
+                            other_car_righ = car_s - 40 < check_other_car_s && car_s + 40 > check_other_car_s;
                         }
                     }
 
                     /***************************************************************************
                     // Behavior Planner
                     // basic strategie: STAY IN THE MIDDLE IF POSSIBLE
+                    // 目标 尽量靠中行驶
                     ***************************************************************************/
 
                     double speed_diff = 0;
@@ -340,6 +336,7 @@ int main() {
 
                     /***************************************************************************
                     // Trajectory
+                    // 轨迹 reference from Project walkthrough and QA
                     ***************************************************************************/
 
                     vector<double> ptsx;
